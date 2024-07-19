@@ -1,12 +1,12 @@
-name = "telegraph-image"
+name = "cloudflare-image"
 compatibility_date = "2023-12-01"
 main = 'src/index.ts'
 [vars]
 MY_VARIABLE = "production_value"
-bucket_url = "https://images.sliverkeigo.top/"
+bucket_url = "YOUR_BUCKET_URL"
 [[r2_buckets]]
 binding = "MY_IMAGES_BUCKET"
-bucket_name = "image"
+bucket_name = "YOUR_BUCKET_NAME"
 
 [placement]
 mode = "smart"

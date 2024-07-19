@@ -1,20 +1,16 @@
 import {Hono} from "hono";
 import { serveStatic } from "hono/cloudflare-workers";
 import {cors} from "hono/cors";
-import {prettyJSON} from 'hono/pretty-json';
 
-interface Env {
-  MY_BUCKET: R2Bucket;
-}
 
-const app = new Hono<{ Bindings: Env }>();
+const app = new Hono<{ Bindings: any }>();
 app.use("/*", serveStatic({root: "./public"}));
 app.use("/*", cors());
 
 
 app.post("/upload", async (c) => {
   try {
-    if (!c.env.MY_IMAGES_BUCKET) {
+    if (!c?.env?.MY_IMAGES_BUCKET) {
       console.error("R2 bucket is not available");
       return c.json({success: false, error: "Storage is not configured properly"}, 500);
     }
@@ -38,7 +34,7 @@ app.post("/upload", async (c) => {
     });
     const fileUrl = `${c.env.bucket_url}${fileName}`;
     return c.json({success: true, fileUrl});
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in upload:", error);
     return c.json({success: false, error: error.message || "Internal server error"}, 500);
   }
