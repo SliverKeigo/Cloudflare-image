@@ -1,0 +1,15 @@
+name = "telegraph-image"
+compatibility_date = "2023-12-01"
+main = 'src/index.ts'
+[vars]
+MY_VARIABLE = "production_value"
+bucket_url = "https://images.sliverkeigo.top/"
+[[r2_buckets]]
+binding = "MY_IMAGES_BUCKET"
+bucket_name = "image"
+
+[placement]
+mode = "smart"
+
+[site]
+bucket = "src"
